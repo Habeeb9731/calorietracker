@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import BottomNav from './components/BottomNav';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -36,7 +37,7 @@ export default function App() {
           element={
             <PrivateRoute>
               <Navbar />
-              <main className="max-w-4xl mx-auto px-4 py-6">
+              <main className="max-w-4xl mx-auto px-4 py-6 pb-24 md:pb-6">
                 <Routes>
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/add-meal" element={<AddMeal />} />
@@ -44,6 +45,7 @@ export default function App() {
                   <Route path="*" element={<Navigate to="/dashboard" replace />} />
                 </Routes>
               </main>
+              <BottomNav />
             </PrivateRoute>
           }
         />

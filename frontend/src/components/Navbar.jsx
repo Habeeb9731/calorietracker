@@ -35,7 +35,7 @@ export default function Navbar() {
           <span className="font-bold text-gray-900 text-lg">CalorieTracker</span>
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1">
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/add-meal">Log Meal</NavLink>
           <NavLink to="/history">History</NavLink>
