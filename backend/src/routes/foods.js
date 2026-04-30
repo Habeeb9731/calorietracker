@@ -42,4 +42,34 @@ router.get('/search', protect, async (req, res) => {
   }
 });
 
+// GET /foods/barcode/:code
+router.get('/barcode/:code', protect, async (req, res) => {
+  try {
+    const { code } = req.params;
+    const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`);
+    const data = await response.json();
+
+    if (data.status !== 1 || !data.product) {
+      return res.status(404).json({ error: 'Product not found in database' });
+    }
+
+    const p = data.product;
+    const n = p.nutriments || {};
+    const kcal = n['energy-kcal_100g'] ?? (n['energy_100g'] ? n['energy_100g'] / 4.184 : 0);
+
+    res.json({
+      name: p.product_name || p.abbreviated_product_name || 'Unknown Product',
+      brand: p.brands || '',
+      caloriesPer100g: Math.round(kcal),
+      proteinPer100g: Math.round((n.proteins_100g || 0) * 10) / 10,
+      carbsPer100g: Math.round((n.carbohydrates_100g || 0) * 10) / 10,
+      fatPer100g: Math.round((n.fat_100g || 0) * 10) / 10,
+      image: p.image_front_small_url || '',
+    });
+  } catch (err) {
+    console.error('Barcode lookup error:', err);
+    res.status(500).json({ error: 'Barcode lookup failed' });
+  }
+});
+
 module.exports = router;

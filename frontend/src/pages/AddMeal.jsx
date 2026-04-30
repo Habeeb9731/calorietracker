@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import FoodScanner from '../components/FoodScanner';
 import FoodSearch from '../components/FoodSearch';
+import BarcodeScanner from '../components/BarcodeScanner';
 
 const now = () => {
   const d = new Date();
@@ -10,9 +11,16 @@ const now = () => {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
 
+const calcMacros = (product, grams) => ({
+  calories: Math.round((product.caloriesPer100g / 100) * grams),
+  protein: Math.round((product.proteinPer100g / 100) * grams * 10) / 10,
+  carbs: Math.round((product.carbsPer100g / 100) * grams * 10) / 10,
+  fat: Math.round((product.fatPer100g / 100) * grams * 10) / 10,
+});
+
 export default function AddMeal() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState('manual'); // 'manual' | 'ai'
+  const [tab, setTab] = useState('manual'); // 'manual' | 'ai' | 'barcode'
   const [form, setForm] = useState({
     title: '',
     calories: '',
@@ -22,9 +30,13 @@ export default function AddMeal() {
     date: now(),
     notes: '',
   });
-  const [aiMeta, setAiMeta] = useState(null); // stores AI confidence/description
+  const [aiMeta, setAiMeta] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // barcode state
+  const [scannedProduct, setScannedProduct] = useState(null);
+  const [grams, setGrams] = useState(100);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -51,6 +63,33 @@ export default function AddMeal() {
       fat: result.fat != null ? String(result.fat) : '',
     }));
     setAiMeta(result);
+    setTab('manual');
+  };
+
+  const handleBarcodeResult = (product) => {
+    setScannedProduct(product);
+    setGrams(100);
+  };
+
+  const handleGramsChange = (e) => {
+    const g = Math.max(1, Number(e.target.value) || 1);
+    setGrams(g);
+  };
+
+  const applyBarcode = () => {
+    const macros = calcMacros(scannedProduct, grams);
+    setForm((prev) => ({
+      ...prev,
+      title: scannedProduct.brand
+        ? `${scannedProduct.name} (${scannedProduct.brand})`
+        : scannedProduct.name,
+      calories: String(macros.calories),
+      protein: String(macros.protein),
+      carbs: String(macros.carbs),
+      fat: String(macros.fat),
+    }));
+    setAiMeta(null);
+    setScannedProduct(null);
     setTab('manual');
   };
 
@@ -84,25 +123,126 @@ export default function AddMeal() {
     }
   };
 
+  const computedMacros = scannedProduct ? calcMacros(scannedProduct, grams) : null;
+
   return (
     <div className="max-w-lg mx-auto space-y-5">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Log a Meal</h1>
 
       {/* Tab switcher */}
       <div className="flex bg-gray-100 dark:bg-[#111] rounded-xl p-1 gap-1">
-        {['manual', 'ai'].map((t) => (
+        {[
+          { id: 'manual', label: '✏️ Manual' },
+          { id: 'barcode', label: '📷 Barcode' },
+          { id: 'ai', label: '🤖 AI Scan' },
+        ].map((t) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
+            key={t.id}
+            onClick={() => { setTab(t.id); setScannedProduct(null); }}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              tab === t ? 'bg-white dark:bg-[#1e1e1e] shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+              tab === t.id
+                ? 'bg-white dark:bg-[#1e1e1e] shadow-sm text-gray-900 dark:text-white'
+                : 'text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
-            {t === 'manual' ? '✏️ Manual Entry' : '🤖 AI Scan'}
+            {t.label}
           </button>
         ))}
       </div>
 
+      {/* Barcode tab */}
+      {tab === 'barcode' && (
+        <div className="card space-y-4">
+          <h2 className="font-semibold text-gray-700 dark:text-gray-200">Scan Product Barcode</h2>
+
+          {!scannedProduct ? (
+            <BarcodeScanner onResult={handleBarcodeResult} />
+          ) : (
+            <div className="space-y-4">
+              {/* Product info */}
+              <div className="flex gap-3 items-start">
+                {scannedProduct.image && (
+                  <img
+                    src={scannedProduct.image}
+                    alt={scannedProduct.name}
+                    className="w-16 h-16 object-contain rounded-lg bg-white"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-gray-900 dark:text-white truncate">{scannedProduct.name}</p>
+                  {scannedProduct.brand && (
+                    <p className="text-xs text-gray-400 dark:text-gray-500">{scannedProduct.brand}</p>
+                  )}
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Per 100g: {scannedProduct.caloriesPer100g} kcal</p>
+                </div>
+              </div>
+
+              {/* Grams input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                  How many grams did you consume?
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={grams}
+                    onChange={handleGramsChange}
+                    min={1}
+                    max={5000}
+                    className="input-field w-32 text-center text-lg font-bold"
+                  />
+                  <span className="text-gray-500 dark:text-gray-400 font-medium">g</span>
+                </div>
+              </div>
+
+              {/* Calculated macros preview */}
+              {computedMacros && (
+                <div className="bg-gray-50 dark:bg-[#111] rounded-xl p-4 space-y-2">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 font-medium uppercase tracking-wide">
+                    Calculated for {grams}g
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {computedMacros.calories} <span className="text-sm font-normal text-gray-400">kcal</span>
+                  </p>
+                  <div className="flex gap-4">
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-blue-500">{computedMacros.protein}g</p>
+                      <p className="text-xs text-gray-400">Protein</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-yellow-500">{computedMacros.carbs}g</p>
+                      <p className="text-xs text-gray-400">Carbs</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-red-400">{computedMacros.fat}g</p>
+                      <p className="text-xs text-gray-400">Fat</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setScannedProduct(null)}
+                  className="btn-secondary flex-1"
+                >
+                  Re-scan
+                </button>
+                <button
+                  type="button"
+                  onClick={applyBarcode}
+                  className="btn-primary flex-1"
+                >
+                  Use This Food
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* AI tab */}
       {tab === 'ai' && (
         <div className="card">
           <h2 className="font-semibold text-gray-700 dark:text-gray-200 mb-4">AI Food Detection</h2>
@@ -110,6 +250,7 @@ export default function AddMeal() {
         </div>
       )}
 
+      {/* Manual tab */}
       {tab === 'manual' && (
         <div className="card">
           <div className="mb-4">

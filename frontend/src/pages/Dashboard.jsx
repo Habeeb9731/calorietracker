@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { registerPlugin } from '@capacitor/core';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import DailyProgress from '../components/DailyProgress';
 import WeeklyChart from '../components/WeeklyChart';
 import MealCard from '../components/MealCard';
+
+const WidgetPlugin = registerPlugin('WidgetPlugin');
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -17,6 +20,7 @@ export default function Dashboard() {
     try {
       const { data: d } = await api.get('/meals/dashboard');
       setData(d);
+      WidgetPlugin.update({ calories: d.dailyTotal, goal: d.calorieGoal }).catch(() => {});
     } catch (err) {
       setError('Failed to load dashboard');
     } finally {

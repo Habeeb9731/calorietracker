@@ -1,0 +1,9 @@
+{
+  "appId": "com.habeeb.calorieai",
+  "appName": "CalorieAI",
+  "webDir": "dist",
+  "server": {
+    "url": "https://foodcalorie.netlify.app",
+    "cleartext": false
+  }
+}
