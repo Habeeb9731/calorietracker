@@ -30,12 +30,12 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 to-white">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 to-white dark:from-gray-900 dark:to-gray-900">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🥗</div>
-          <h1 className="text-3xl font-bold text-gray-900">Get Started</h1>
-          <p className="text-gray-500 mt-1">Create your free account</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Get Started</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Create your free account</p>
         </div>
 
         <div className="card">
@@ -47,7 +47,7 @@ export default function Register() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Full Name</label>
               <input
                 type="text"
                 name="name"
@@ -60,7 +60,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
               <input
                 type="email"
                 name="email"
@@ -73,7 +73,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password</label>
               <input
                 type="password"
                 name="password"
@@ -86,7 +86,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Daily Calorie Goal
               </label>
               <input
@@ -106,9 +106,9 @@ export default function Register() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-5">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-5">
             Already have an account?{' '}
-            <Link to="/login" className="text-primary-600 font-medium hover:underline">
+            <Link to="/login" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
               Sign in
             </Link>
           </p>

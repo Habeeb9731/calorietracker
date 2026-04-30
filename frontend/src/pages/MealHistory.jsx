@@ -51,9 +51,9 @@ export default function MealHistory() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Meal History</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Meal History</h1>
         {meals.length > 0 && (
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             {meals.length} meals · {totalCalories} kcal total
           </span>
         )}
@@ -62,7 +62,7 @@ export default function MealHistory() {
       {/* Date range filter */}
       <div className="card flex gap-3 items-end flex-wrap">
         <div className="flex-1 min-w-[140px]">
-          <label className="block text-xs font-medium text-gray-500 mb-1">From</label>
+          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">From</label>
           <input
             type="date"
             value={startDate}
@@ -71,7 +71,7 @@ export default function MealHistory() {
           />
         </div>
         <div className="flex-1 min-w-[140px]">
-          <label className="block text-xs font-medium text-gray-500 mb-1">To</label>
+          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">To</label>
           <input
             type="date"
             value={endDate}
@@ -93,7 +93,7 @@ export default function MealHistory() {
       ) : meals.length === 0 ? (
         <div className="card text-center py-12">
           <p className="text-4xl mb-3">📋</p>
-          <p className="text-gray-500 font-medium">No meals in this date range</p>
+          <p className="text-gray-500 dark:text-gray-400 font-medium">No meals in this date range</p>
         </div>
       ) : (
         Object.entries(grouped).map(([date, dayMeals]) => {
@@ -101,8 +101,8 @@ export default function MealHistory() {
           return (
             <div key={date} className="card">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold text-gray-800">{date}</h3>
-                <span className="text-sm font-medium text-primary-600">{dayTotal} kcal</span>
+                <h3 className="font-semibold text-gray-800 dark:text-gray-100">{date}</h3>
+                <span className="text-sm font-medium text-primary-600 dark:text-primary-400">{dayTotal} kcal</span>
               </div>
               {dayMeals.map((meal) => (
                 <MealCard key={meal._id} meal={meal} onDelete={handleDelete} />

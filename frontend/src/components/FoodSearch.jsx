@@ -68,17 +68,17 @@ export default function FoodSearch({ onSelect }) {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white rounded-xl shadow-xl border border-gray-100 max-h-72 overflow-y-auto">
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-700 rounded-xl shadow-xl border border-gray-100 dark:border-gray-600 max-h-72 overflow-y-auto">
           {results.map((food) => (
             <button
               key={food.fdcId}
               type="button"
               onClick={() => handleSelect(food)}
-              className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-50 last:border-0 transition-colors"
+              className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gray-50 dark:border-gray-600 last:border-0 transition-colors"
             >
-              <p className="text-sm font-medium text-gray-900 truncate">{food.name}</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{food.name}</p>
               <div className="flex gap-3 mt-0.5">
-                <span className="text-xs text-gray-500">{food.calories} kcal</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{food.calories} kcal</span>
                 <span className="text-xs text-blue-500 font-medium">P {food.protein}g</span>
                 <span className="text-xs text-yellow-500 font-medium">C {food.carbs}g</span>
                 <span className="text-xs text-red-400 font-medium">F {food.fat}g</span>
@@ -89,8 +89,8 @@ export default function FoodSearch({ onSelect }) {
       )}
 
       {open && !loading && results.length === 0 && query.trim().length >= 2 && (
-        <div className="absolute z-50 mt-1 w-full bg-white rounded-xl shadow-lg border border-gray-100 px-4 py-3">
-          <p className="text-sm text-gray-500">No results for "{query}"</p>
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-700 rounded-xl shadow-lg border border-gray-100 dark:border-gray-600 px-4 py-3">
+          <p className="text-sm text-gray-500 dark:text-gray-400">No results for "{query}"</p>
         </div>
       )}
     </div>

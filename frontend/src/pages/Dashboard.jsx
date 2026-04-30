@@ -61,12 +61,12 @@ export default function Dashboard() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Hello, {user?.name?.split(' ')[0]} 👋
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">{todayStr}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{todayStr}</p>
         </div>
-        <Link to="/add-meal" className="btn-primary text-sm">
+        <Link to="/add-meal" className="btn-primary text-sm hidden md:inline-flex">
           + Log Meal
         </Link>
       </div>
@@ -77,14 +77,14 @@ export default function Dashboard() {
 
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-gray-700">Today's Meals</h2>
-          <span className="text-sm text-gray-400">{data.dailyMeals.length} logged</span>
+          <h2 className="font-semibold text-gray-700 dark:text-gray-200">Today's Meals</h2>
+          <span className="text-sm text-gray-400 dark:text-gray-500">{data.dailyMeals.length} logged</span>
         </div>
 
         {data.dailyMeals.length === 0 ? (
           <div className="text-center py-10">
             <p className="text-4xl mb-3">🍽️</p>
-            <p className="text-gray-500 font-medium">No meals logged today</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">No meals logged today</p>
             <Link to="/add-meal" className="btn-primary inline-block mt-4 text-sm">
               Log your first meal
             </Link>

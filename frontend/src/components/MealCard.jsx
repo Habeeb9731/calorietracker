@@ -17,14 +17,14 @@ export default function MealCard({ meal, onDelete }) {
   };
 
   return (
-    <div className="flex items-center gap-4 py-3 border-b border-gray-50 last:border-0 group">
-      <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center flex-shrink-0 text-lg">
+    <div className="flex items-center gap-4 py-3 border-b border-gray-50 dark:border-gray-700 last:border-0 group">
+      <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center flex-shrink-0 text-lg">
         {meal.aiDetected ? '🤖' : '🍽️'}
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-gray-900 truncate">{meal.title}</p>
-        <p className="text-xs text-gray-400">{formatTime(meal.date)}</p>
+        <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{meal.title}</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500">{formatTime(meal.date)}</p>
         {(meal.protein != null || meal.carbs != null || meal.fat != null) && (
           <div className="flex gap-2 mt-1">
             {meal.protein != null && (
@@ -41,14 +41,14 @@ export default function MealCard({ meal, onDelete }) {
       </div>
 
       <div className="text-right flex-shrink-0">
-        <p className="font-bold text-gray-900">{meal.calories}</p>
-        <p className="text-xs text-gray-400">kcal</p>
+        <p className="font-bold text-gray-900 dark:text-gray-100">{meal.calories}</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500">kcal</p>
       </div>
 
       <button
         onClick={handleDelete}
         className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600
-                   transition-all duration-150 p-1 rounded-lg hover:bg-red-50"
+                   transition-all duration-150 p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
         title="Delete meal"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

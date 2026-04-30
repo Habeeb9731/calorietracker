@@ -26,16 +26,16 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 to-white">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 to-white dark:from-gray-900 dark:to-gray-900">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🥗</div>
-          <h1 className="text-3xl font-bold text-gray-900">CalorieTracker</h1>
-          <p className="text-gray-500 mt-1">AI-powered meal logging</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">CalorieTracker</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">AI-powered meal logging</p>
         </div>
 
         <div className="card">
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">Welcome back</h2>
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Welcome back</h2>
 
           {error && (
             <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
@@ -45,7 +45,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
               <input
                 type="email"
                 name="email"
@@ -58,7 +58,7 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password</label>
               <input
                 type="password"
                 name="password"
@@ -75,9 +75,9 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-5">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-5">
             No account?{' '}
-            <Link to="/register" className="text-primary-600 font-medium hover:underline">
+            <Link to="/register" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
               Create one
             </Link>
           </p>

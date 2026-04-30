@@ -16,23 +16,22 @@ export default function BottomNav() {
   const { pathname } = useLocation();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 md:hidden z-50"
-         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+    <nav
+      className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 md:hidden z-50"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
       <div className="flex items-center justify-around h-16">
         <Link
           to="/dashboard"
           className={`flex flex-col items-center gap-1 flex-1 py-2 transition-colors ${
-            pathname === '/dashboard' ? 'text-primary-500' : 'text-gray-400'
+            pathname === '/dashboard' ? 'text-primary-500' : 'text-gray-400 dark:text-gray-500'
           }`}
         >
           <HomeIcon filled={pathname === '/dashboard'} />
           <span className="text-xs font-medium">Dashboard</span>
         </Link>
 
-        <Link
-          to="/add-meal"
-          className="flex flex-col items-center gap-1 flex-1 py-2 -mt-5"
-        >
+        <Link to="/add-meal" className="flex flex-col items-center gap-1 flex-1 py-2 -mt-5">
           <div className="w-14 h-14 bg-primary-500 rounded-full flex items-center justify-center shadow-lg">
             <svg viewBox="0 0 24 24" className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -44,7 +43,7 @@ export default function BottomNav() {
         <Link
           to="/history"
           className={`flex flex-col items-center gap-1 flex-1 py-2 transition-colors ${
-            pathname === '/history' ? 'text-primary-500' : 'text-gray-400'
+            pathname === '/history' ? 'text-primary-500' : 'text-gray-400 dark:text-gray-500'
           }`}
         >
           <HistoryIcon filled={pathname === '/history'} />

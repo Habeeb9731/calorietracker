@@ -86,16 +86,16 @@ export default function AddMeal() {
 
   return (
     <div className="max-w-lg mx-auto space-y-5">
-      <h1 className="text-2xl font-bold text-gray-900">Log a Meal</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Log a Meal</h1>
 
       {/* Tab switcher */}
-      <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
+      <div className="flex bg-gray-100 dark:bg-gray-700 rounded-xl p-1 gap-1">
         {['manual', 'ai'].map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              tab === t ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'
+              tab === t ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
             }`}
           >
             {t === 'manual' ? '✏️ Manual Entry' : '🤖 AI Scan'}
@@ -105,7 +105,7 @@ export default function AddMeal() {
 
       {tab === 'ai' && (
         <div className="card">
-          <h2 className="font-semibold text-gray-700 mb-4">AI Food Detection</h2>
+          <h2 className="font-semibold text-gray-700 dark:text-gray-200 mb-4">AI Food Detection</h2>
           <FoodScanner onResult={handleAiResult} />
         </div>
       )}
@@ -113,14 +113,14 @@ export default function AddMeal() {
       {tab === 'manual' && (
         <div className="card">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
               Search USDA Database
             </label>
             <FoodSearch onSelect={handleFoodSelect} />
-            <p className="text-xs text-gray-400 mt-1">Search 600k+ foods — auto-fills name & macros</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Search 600k+ foods — auto-fills name & macros</p>
           </div>
 
-          <div className="border-t border-gray-100 my-4" />
+          <div className="border-t border-gray-100 dark:border-gray-700 my-4" />
 
           {aiMeta && (
             <div className="bg-primary-50 border border-primary-100 rounded-xl px-4 py-3 mb-4">
@@ -144,7 +144,7 @@ export default function AddMeal() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Meal Name
               </label>
               <input
@@ -159,7 +159,7 @@ export default function AddMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Calories (kcal)
               </label>
               <input
@@ -176,8 +176,8 @@ export default function AddMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Macros <span className="text-gray-400 font-normal">(grams, optional)</span>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                Macros <span className="text-gray-400 dark:text-gray-500 font-normal">(grams, optional)</span>
               </label>
               <div className="grid grid-cols-3 gap-2">
                 <div>
@@ -223,7 +223,7 @@ export default function AddMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Date & Time
               </label>
               <input
@@ -236,7 +236,7 @@ export default function AddMeal() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Notes (optional)
               </label>
               <textarea
