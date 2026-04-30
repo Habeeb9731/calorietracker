@@ -89,13 +89,13 @@ export default function AddMeal() {
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Log a Meal</h1>
 
       {/* Tab switcher */}
-      <div className="flex bg-gray-100 dark:bg-gray-700 rounded-xl p-1 gap-1">
+      <div className="flex bg-gray-100 dark:bg-[#111] rounded-xl p-1 gap-1">
         {['manual', 'ai'].map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              tab === t ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+              tab === t ? 'bg-white dark:bg-[#1e1e1e] shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             {t === 'manual' ? '✏️ Manual Entry' : '🤖 AI Scan'}
@@ -120,7 +120,7 @@ export default function AddMeal() {
             <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Search 600k+ foods — auto-fills name & macros</p>
           </div>
 
-          <div className="border-t border-gray-100 dark:border-gray-700 my-4" />
+          <div className="border-t border-gray-100 dark:border-[#1e1e1e] my-4" />
 
           {aiMeta && (
             <div className="bg-primary-50 border border-primary-100 rounded-xl px-4 py-3 mb-4">

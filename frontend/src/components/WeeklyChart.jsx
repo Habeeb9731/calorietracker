@@ -12,7 +12,7 @@ const CustomTooltip = ({ active, payload, label, dark }) => {
   if (active && payload?.length) {
     return (
       <div className={`border shadow-lg rounded-xl px-3 py-2 text-sm ${
-        dark ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-100'
+        dark ? 'bg-[#111] border-[#2a2a2a]' : 'bg-white border-gray-100'
       }`}>
         <p className={dark ? 'text-gray-400' : 'text-gray-500'}>{label}</p>
         <p className={`font-bold ${dark ? 'text-gray-100' : 'text-gray-900'}`}>{payload[0].value} kcal</p>
@@ -26,9 +26,9 @@ export default function WeeklyChart({ data, goal }) {
   const { dark } = useTheme();
   const formatted = data.map((d) => ({ ...d, day: formatDay(d.date) }));
 
-  const gridColor = dark ? '#374151' : '#f3f4f6';
-  const tickColor = dark ? '#6b7280' : '#9ca3af';
-  const cursorColor = dark ? '#374151' : '#f9fafb';
+  const gridColor = dark ? '#1e1e1e' : '#f3f4f6';
+  const tickColor = dark ? '#555' : '#9ca3af';
+  const cursorColor = dark ? '#111' : '#f9fafb';
 
   return (
     <div className="card">

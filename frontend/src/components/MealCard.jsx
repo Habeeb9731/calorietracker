@@ -17,7 +17,7 @@ export default function MealCard({ meal, onDelete }) {
   };
 
   return (
-    <div className="flex items-center gap-4 py-3 border-b border-gray-50 dark:border-gray-700 last:border-0 group">
+    <div className="flex items-center gap-4 py-3 border-b border-gray-50 dark:border-[#1e1e1e] last:border-0 group">
       <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center flex-shrink-0 text-lg">
         {meal.aiDetected ? '🤖' : '🍽️'}
       </div>

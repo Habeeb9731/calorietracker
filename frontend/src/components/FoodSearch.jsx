@@ -68,13 +68,13 @@ export default function FoodSearch({ onSelect }) {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-700 rounded-xl shadow-xl border border-gray-100 dark:border-gray-600 max-h-72 overflow-y-auto">
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-[#111] rounded-xl shadow-xl border border-gray-100 dark:border-[#2a2a2a] max-h-72 overflow-y-auto">
           {results.map((food) => (
             <button
               key={food.fdcId}
               type="button"
               onClick={() => handleSelect(food)}
-              className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gray-50 dark:border-gray-600 last:border-0 transition-colors"
+              className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] border-b border-gray-50 dark:border-[#2a2a2a] last:border-0 transition-colors"
             >
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{food.name}</p>
               <div className="flex gap-3 mt-0.5">
@@ -89,7 +89,7 @@ export default function FoodSearch({ onSelect }) {
       )}
 
       {open && !loading && results.length === 0 && query.trim().length >= 2 && (
-        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-700 rounded-xl shadow-lg border border-gray-100 dark:border-gray-600 px-4 py-3">
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-[#111] rounded-xl shadow-lg border border-gray-100 dark:border-[#2a2a2a] px-4 py-3">
           <p className="text-sm text-gray-500 dark:text-gray-400">No results for "{query}"</p>
         </div>
       )}

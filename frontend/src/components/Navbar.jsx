@@ -11,7 +11,7 @@ const NavLink = ({ to, children }) => {
       className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
         active
           ? 'bg-primary-500 text-white'
-          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-[#1a1a1a]'
       }`}
     >
       {children}
@@ -30,7 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50">
+    <nav className="bg-white dark:bg-black border-b border-gray-100 dark:border-[#1e1e1e] sticky top-0 z-50">
       <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/dashboard" className="flex items-center gap-2">
           <span className="text-2xl">🥗</span>
@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggle}
-            className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
             title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {dark ? (
